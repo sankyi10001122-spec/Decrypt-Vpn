@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="my">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Encrypt and decrypt your own configuration files locally in your browser.">
+  <meta name="theme-color" content="#0b1020">
+  <title>Config Vault — ဖိုင်လုံခြုံရေး</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="top">
+      <a class="brand" href="./" aria-label="Config Vault home"><span class="mark">CV</span><span>CONFIG <b>VAULT</b></span></a>
+      <span class="local-pill"><i></i> Browser ထဲမှာသာ အလုပ်လုပ်သည်</span>
+    </header>
+    <section class="intro">
+      <p class="eyebrow">သင့်ဖိုင်၊ သင့်စက်၊ သင့်ထိန်းချုပ်မှု</p>
+      <h1>Config ဖိုင်တွေကို<br><em>ကိုယ်တိုင် ကာကွယ်ပါ။</em></h1>
+      <p class="lead">သင့်ကိုယ်ပိုင်ဖိုင်ကို စကားဝှက်ဖြင့် encrypt လုပ်ပါ၊ လိုအပ်သည့်အခါ ပြန်ဖွင့်ပါ။ ဖိုင်ကို server သို့ မပို့ပါ။</p>
+    </section>
+    <section class="workspace" aria-label="Encrypt and decrypt files">
+      <nav class="tabs" role="tablist">
+        <button class="tab active" id="encryptTab" role="tab" aria-selected="true" aria-controls="encryptPanel">ဖိုင်ကို Encrypt လုပ်ရန်</button>
+        <button class="tab" id="decryptTab" role="tab" aria-selected="false" aria-controls="decryptPanel">ဖိုင်ကို Decrypt လုပ်ရန်</button>
+      </nav>
+      <section class="panel" id="encryptPanel" role="tabpanel" aria-labelledby="encryptTab">
+        <label class="dropzone" id="encryptDrop" for="encryptFile">
+          <span class="fileicon">↑</span><strong>ဖိုင်ရွေးပါ သို့မဟုတ် ဒီနေရာသို့ ဆွဲချပါ</strong>
+          <span class="muted">.ovpn, .conf, .env, .yaml နှင့် အခြားဖိုင်များ</span>
+          <span class="filename" id="encryptName">ဖိုင် မရွေးရသေးပါ</span>
+          <input id="encryptFile" type="file">
+        </label>
+        <label class="field-label" for="encryptPassword">စကားဝှက်</label>
+        <input class="password" id="encryptPassword" type="password" autocomplete="new-password" placeholder="ရှည်လျားပြီး ခန့်မှန်းရခက်သော စကားဝှက်" minlength="1">
+        <label class="field-label" for="encryptConfirm">စကားဝှက် ထပ်ထည့်ပါ</label>
+        <input class="password" id="encryptConfirm" type="password" autocomplete="new-password" placeholder="အတည်ပြုရန် ထပ်ရိုက်ထည့်ပါ">
+        <button class="primary" id="encryptButton">လုံခြုံစွာ Encrypt လုပ်မည် <span>→</span></button>
+        <p class="hint">ခိုင်မာပြီး မျှဝေမထားဖူးသော စကားဝှက်ကို အသုံးပြုပါ။ မေ့သွားလျှင် ဖိုင်ကို ပြန်ဖွင့်၍မရပါ။</p>
+      </section>
+      <section class="panel hidden" id="decryptPanel" role="tabpanel" aria-labelledby="decryptTab" hidden>
+        <label class="dropzone" id="decryptDrop" for="decryptFile">
+          <span class="fileicon">↓</span><strong>ဒီ tool ဖြင့် encrypt လုပ်ထားသော .enc ဖိုင်ကို ရွေးပါ</strong>
+          <span class="muted">မိမိပိုင်ဖိုင် သို့မဟုတ် အသုံးပြုခွင့်ရှိသောဖိုင်သာ ဖွင့်ပါ</span>
+          <span class="filename" id="decryptName">ဖိုင် မရွေးရသေးပါ</span>
+          <input id="decryptFile" type="file" accept=".enc,application/octet-stream">
+        </label>
+        <label class="field-label" for="decryptPassword">စကားဝှက်</label>
+        <input class="password" id="decryptPassword" type="password" autocomplete="current-password" placeholder="Encrypt လုပ်ရာတွင် အသုံးပြုခဲ့သော စကားဝှက်">
+        <button class="primary" id="decryptButton">ဖိုင်ကို Decrypt လုပ်မည် <span>→</span></button>
+        <p class="hint">အခြား VPN app များ၏ သီးသန့် lock ဖိုင်များကို ဒီ tool ဖြင့် ဖွင့်၍မရပါ။</p>
+      </section>
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+    </section>
+    <section class="security">
+      <div class="security-icon">⌑</div><div><h2>လုံခြုံရေးအကြောင်း</h2><p>ဖိုင်ကို သင့် browser မှာပဲ Web Crypto API ဖြင့် AES-256-GCM ချစ်ပ်ဝှက်သည်။ Password မှ key ရယူရာတွင် PBKDF2-SHA-256 အသုံးပြုသည်။ ဒီစာမျက်နှာက ဖိုင် သို့မဟုတ် password ကို network မှတစ်ဆင့် မပို့ပါ။</p></div>
+    </section>
+    <footer>Config Vault · Open-source starter · ကိုယ်ပိုင်ဖိုင်များအတွက်သာ</footer>
+  </main>
+  <script src="app.js" defer></script>
+</body>
+</html>
